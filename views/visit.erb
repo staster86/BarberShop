@@ -19,10 +19,10 @@
 
     <div>
         <label>Выберите мастера</label>
-        <select name="barber" class="form-control" value="<%= @barber %>">
-            <option>Иван Иванов</option>
-            <option>Петя Махалов</option>
-            <option>Рома Романов</option>
+        <select name="barber" class="form-control">
+            <option <%= @barber == 'Иван Иванов' ? 'selected' : '' %>>Иван Иванов</option>
+            <option <%= @barber == 'Петя Махалов' ? 'selected' : '' %>>Петя Махалов</option>
+            <option <%= @barber == 'Рома Романов' ? 'selected' : '' %>>Рома Романов</option>
         </select>
     </div>
 
