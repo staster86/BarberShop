@@ -1,12 +1,13 @@
 require 'rubygems'
-require 'sinatra'
-require 'sinatra/reloader'
-require 'sqlite3'
+require 'sinatra'          #Библиотека для поднятия вебсервера на основе Sinatra
+require 'sinatra/reloader' #Автоматическая перезагрузка приложения без перезапуска сервера
+require 'sqlite3'          #Подключение библиотеки для работы с sqlite3
 
+#Обращение к SQLite3 для создания базы данных
 configure do
 	@db = SQLite3::Database.new 'barbershop.db'
 	@db.execute 'CREATE TABLE IF NOT EXISTS
-	 `Users` (
+	`Users` (
 	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`name`	TEXT,
 	`phone`	TEXT,
