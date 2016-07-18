@@ -5,15 +5,17 @@ require 'sqlite3'          #Подключение библиотеки для �
 
 #Обращение к SQLite3 для создания базы данных
 configure do
-	@db = SQLite3::Database.new 'barbershop.db'
-	@db.execute 'CREATE TABLE IF NOT EXISTS
-	`Users` (
-	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`name`	TEXT,
-	`phone`	TEXT,
-	`date_stamp`	TEXT,
-	`color`	TEXT,
-	`barber`	TEXT);'
+	db = SQLite3::Database.new 'barbershop.db'
+	db.execute 'CREATE TABLE IF NOT EXISTS
+				`Users`
+				(
+				`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+				`name` TEXT,
+				`phone` TEXT,
+				`date_stamp` TEXT,
+				`color` TEXT,
+				`barber` TEXT
+				);'
 end
 
 get '/' do
@@ -49,9 +51,9 @@ post '/visit' do
 		return erb :visit
 	end
 
-	f = File.open "./public/user.txt", "a"
-	f.write "Парикхмахер: #{@barber}, Клиент: #{@username}, Телефон #{@phone}, Дата и время: #{@datetime}, Цвет: #{@color}\n"
-	f.close
+	db = get_db
+	db.execute 'INSERT INTO Users (name, phone, date_stamp, barber, color)
+				VALUES (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
 
 	erb "Хорошо уважаемый #{@username}! Ваш парикхмахер: #{@barber}, телефон для связи с Вами #{@phone}. Ждём Вас #{@datetime} и покрасим ваши волосы в #{@color} цвет."
 end
@@ -60,9 +62,9 @@ post '/contacts' do
 	@email = params[:email]
 	@message = params[:message]
 
-	f = File.open "./public/contacts.txt", "a"
-	f.write "Почта: #{@email}, Сообщение: #{@message}\n"
-	f.close
-
 	erb "Спасибо за отзыв! Мы учтём Ваши пожелания."
+end
+
+def get_db
+	return SQLite3::Database.new 'barbershop.db'
 end
