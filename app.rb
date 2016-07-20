@@ -67,12 +67,8 @@ end
 get '/showusers' do
 	db = get_db
 
-	db.execute 'select * from Users order by id desc' do |row|
-		erb row['name']
-		# print "\t - \t"
-		# puts row['date_stamp']
-		# puts "------------------"
-	end
+	@results = db.execute 'select * from Users order by id desc'
+	erb :showusers
 end
 
 post '/contacts' do

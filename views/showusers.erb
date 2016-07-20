@@ -1,0 +1,21 @@
+<table class='table'>
+<caption>Клиенты по предварительной записи</caption>
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Дата и время</th>
+            <th>Парикхмахер</th>
+            <th>Цвет для покраски</th>
+        </tr>
+    </thead>
+    <% @results.each do |row| %>
+        <tr>
+            <td><%= row['name'] %></td>
+            <td><%= row['phone']%></td>
+            <td><%= row['date_stamp']%></td>
+            <td><%= row['barber']%></td>
+            <td><%= row['color']%></td>
+        </tr>
+    <% end %>
+</table>
