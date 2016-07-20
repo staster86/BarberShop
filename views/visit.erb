@@ -8,10 +8,6 @@
 
         //Маска ввода телефонного номера
         $("#phone").mask("8(999) 999-9999");
-
-        //$('#aaa').css('background-color','yellow'); //Способ обращения по id
-        //$('#bbb').css('background-color','red');
-        //$('.ccc').css('background-color','blue'); //Способ многократного использования
     });
 </script>
 
@@ -38,7 +34,7 @@
 
     <div class="form-group">
         <label>Когда вас ждать?</label>
-        <input name="datetime" type="datetime-local" class="form-control" placeholder="Введите дату и время" value="<%= @datetime %>">
+        <input name="datetime" type="datetime-local" style="width: 200px; height: 30px;" class="form-control" placeholder="Введите дату и время" value="<%= @datetime %>">
     </div>
 
     <div class="form-group">
