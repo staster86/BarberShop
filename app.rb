@@ -3,6 +3,12 @@ require 'sinatra'          #Библиотека для поднятия веб�
 require 'sinatra/reloader' #Автоматическая перезагрузка приложения без перезапуска сервера
 require 'sqlite3'          #Подключение библиотеки для работы с sqlite3
 
+def get_db
+	db = SQLite3::Database.new 'barbershop.db'
+	db.results_as_hash = true
+	return db
+end
+
 #Обращение к SQLite3 для создания базы данных
 configure do
 	db = SQLite3::Database.new 'barbershop.db'
@@ -59,7 +65,14 @@ post '/visit' do
 end
 
 get '/showusers' do
-  "Hello World"
+	db = get_db
+
+	db.execute 'select * from Users order by id desc' do |row|
+		erb row['name']
+		# print "\t - \t"
+		# puts row['date_stamp']
+		# puts "------------------"
+	end
 end
 
 post '/contacts' do
@@ -67,10 +80,4 @@ post '/contacts' do
 	@message = params[:message]
 
 	erb "Спасибо за отзыв! Мы учтём Ваши пожелания."
-end
-
-def get_db
-	db = SQLite3::Database.new 'barbershop.db'
-	db.results_as_hash = true
-	return db
 end
