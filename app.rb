@@ -66,7 +66,6 @@ end
 
 get '/showusers' do
 	db = get_db
-
 	@results = db.execute 'select * from Users order by id desc'
 	erb :showusers
 end
@@ -74,6 +73,5 @@ end
 post '/contacts' do
 	@email = params[:email]
 	@message = params[:message]
-
 	erb "Спасибо за отзыв! Мы учтём Ваши пожелания."
 end

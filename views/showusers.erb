@@ -1,5 +1,5 @@
 <table class='table'>
-<caption><h3>Клиенты по предварительной записи</h3></caption>
+    <caption><h3>Клиенты по предварительной записи</h3></caption>
     <thead>
         <tr>
             <th>Имя</th>
@@ -9,13 +9,15 @@
             <th>Цвет для покраски</th>
         </tr>
     </thead>
-    <% @results.each do |row| %>
-        <tr>
-            <td><%= row['name'] %></td>
-            <td><%= row['phone']%></td>
-            <td><%= row['date_stamp']%></td>
-            <td><%= row['barber']%></td>
-            <td><%= row['color']%></td>
-        </tr>
-    <% end %>
+    <tbody>
+        <% @results.each do |row| %>
+            <tr>
+                <td><%= row['name'] %></td>
+                <td><%= row['phone']%></td>
+                <td><%= row['date_stamp']%></td>
+                <td><%= row['barber']%></td>
+                <td><%= row['color']%></td>
+            </tr>
+        <% end %>
+    </tbody>
 </table>
