@@ -59,7 +59,7 @@ post '/visit' do
 
 	db = get_db
 	db.execute 'INSERT INTO Users (name, phone, date_stamp, barber, color)
-				VALUES (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
+				VALUES (?, ?, ?, ?, ?)', [@username, @phone, @date_stamp, @barber, @color]
 
 	erb "Хорошо уважаемый #{@username}! Ваш парикхмахер: #{@barber}, телефон для связи с Вами #{@phone}. Ждём Вас #{@date_stamp} и покрасим ваши волосы в #{@color} цвет."
 end
