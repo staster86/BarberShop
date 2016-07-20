@@ -39,11 +39,11 @@ post '/visit' do
 	@barber = params[:barber]
 	@username = params[:username]
 	@phone = params[:phone]
-	@datetime = params[:datetime]
+	@date_stamp = params[:date_stamp]
 
 	hh = { 	:username => 'Введите имя',
 			:phone => 'Введите телефон',
-		 	:datetime => 'Введите дату и время' }
+		 	:date_stamp => 'Введите дату и время' }
 
 	@error = hh.select {|key,_| params[key] == ""}.values.join(", ")
 
@@ -55,7 +55,11 @@ post '/visit' do
 	db.execute 'INSERT INTO Users (name, phone, date_stamp, barber, color)
 				VALUES (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
 
-	erb "Хорошо уважаемый #{@username}! Ваш парикхмахер: #{@barber}, телефон для связи с Вами #{@phone}. Ждём Вас #{@datetime} и покрасим ваши волосы в #{@color} цвет."
+	erb "Хорошо уважаемый #{@username}! Ваш парикхмахер: #{@barber}, телефон для связи с Вами #{@phone}. Ждём Вас #{@date_stamp} и покрасим ваши волосы в #{@color} цвет."
+end
+
+get '/showusers' do
+  "Hello World"
 end
 
 post '/contacts' do
@@ -66,5 +70,7 @@ post '/contacts' do
 end
 
 def get_db
-	return SQLite3::Database.new 'barbershop.db'
+	db = SQLite3::Database.new 'barbershop.db'
+	db.results_as_hash = true
+	return db
 end
