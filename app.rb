@@ -3,6 +3,18 @@ require 'sinatra'          #Библиотека для поднятия веб�
 require 'sinatra/reloader' #Автоматическая перезагрузка приложения без перезапуска сервера
 require 'sqlite3'          #Подключение библиотеки для работы с sqlite3
 
+def is_barber_exists? db, name
+	db.execute('select * from Barbers where name=?', [name]).length > 0
+end
+
+def seed_db db, barbers
+	barbers.each do |barber|
+		if !is_barber_exists? db, barber
+			db.execute 'INSERT into Barbers (name) values (?)', [barber]
+		end
+	end
+end
+
 def get_db
 	db = SQLite3::Database.new 'barbershop.db'
 	db.results_as_hash = true
@@ -22,6 +34,15 @@ configure do
 				`color` TEXT,
 				`barber` TEXT
 				);'
+
+	db.execute 'CREATE TABLE IF NOT EXISTS
+	`Barbers`
+	(
+	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`name` TEXT
+	);'
+
+	seed_db db, ['Тони Масколо', 'Видал Сассун', 'Лара Лейто', 'Мариэл Хенн', 'Кейт Янг', 'Лесли Фримар']
 end
 
 get '/' do
